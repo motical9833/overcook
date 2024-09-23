@@ -1,0 +1,14 @@
+Ingredient,OffsetX ,OffsetY
+BurgerBun,0,0
+Fish,0.25,0
+Sausage,0.5,0
+Mushroom,0,0.25
+Meat,0.25,0.25
+Onion,0.25,0.5
+Lettuce,0.5,0.25
+Rice,0.75,0.25
+Tomato,0,0.5
+Potato,0.5,0.5
+Chicken,0,0.75
+Tortilla,0.25,0.75
+Cheese,0.5,0.75
