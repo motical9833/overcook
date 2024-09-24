@@ -16,12 +16,14 @@ public class MoveScript : MonoBehaviour
     bool isDashCool;
     bool isReachMaxSpeed = false;
 
+    AudioSource audiosource;
 
     public void SetInitial(GameObject _model, float _moveSpeed, float _rotSpeed)
     {
         model = _model;
         moveSpeed = _moveSpeed;
         rotSpeed = _rotSpeed;
+        audiosource = this.GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -34,6 +36,7 @@ public class MoveScript : MonoBehaviour
         {
             yield return null;
         }
+        audiosource.Play();
         dashAccSpeed = dashAccMaxSpeed;
         yield return new WaitForSeconds(0.5f);
         dashAccSpeed = 0.0f;

@@ -36,6 +36,9 @@ public class PotScript : GrabAbleObjScript
 
     public GameObject fireEffect;
 
+    public AudioSource boilingAudioSource;
+    public AudioSource addIngredientAudioSource;
+
     void Start()
     {
         base.Initialize();
