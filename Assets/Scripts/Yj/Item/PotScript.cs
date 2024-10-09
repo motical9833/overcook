@@ -15,7 +15,7 @@ public class PotScript : GrabAbleObjScript
     public float[] alertTimes = new float[4];
     private float alertTimer = 0.0f;
 
-    private float boilingDoneTime = 5.0f;
+    private float boilingDoneTime = 10.0f;
     private float boilingTimer = 0.0f;
 
     private float burningTimer = 0.0f;
@@ -39,6 +39,8 @@ public class PotScript : GrabAbleObjScript
     public AudioSource boilingAudioSource;
     public AudioSource addIngredientAudioSource;
 
+    public GameObject soup_object;
+
     void Start()
     {
         base.Initialize();
@@ -56,6 +58,11 @@ public class PotScript : GrabAbleObjScript
         {
             Debug.Log("3개 이상의 재료를 넣을려고 시도함");
             return false;
+        }
+
+        if(!soup_object.activeSelf)
+        {
+            soup_object.SetActive(true);
         }
 
         foreach (IngredientInfo.IngredientElements ingredient in IngredientInfo.Ingredients)
@@ -191,6 +198,9 @@ public class PotScript : GrabAbleObjScript
         firstAddedName = "";
         addCount = 0;
         isCookedDone = false;
+        soup_object.SetActive(false);
+        potUICtrlScr.HideAddedImage();
+
         return true;
     }
 

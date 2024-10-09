@@ -8,14 +8,20 @@ public class PlateScript : GrabAbleObjScript
 
     public string plateFoodName;
 
+    GameObject cookingParent;
+
+
     void Start()
     {
         base.Initialize();
+
+        cookingParent = this.transform.GetChild(1).gameObject;
     }
 
     public void PlateSoup(string soupIngredient)
     {
         plateFoodName = "Soup_" + soupIngredient;
+        cookingParent.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     public string GetPlateFoodName()
