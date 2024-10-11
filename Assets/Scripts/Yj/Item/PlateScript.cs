@@ -21,7 +21,8 @@ public class PlateScript : GrabAbleObjScript
     public void PlateSoup(string soupIngredient)
     {
         plateFoodName = "Soup_" + soupIngredient;
-        cookingParent.transform.GetChild(0).gameObject.SetActive(true);
+        GameObject cooking = cookingParent.transform.GetChild(0).gameObject;
+        cookingParent.GetComponent<CookingScript>().ActiveFood(cooking);
     }
 
     public string GetPlateFoodName()
@@ -32,5 +33,10 @@ public class PlateScript : GrabAbleObjScript
     void PlateFood(string foodName)
     {   
 
+    }
+
+    public void Reset()
+    {
+        cookingParent.GetComponent<CookingScript>().DeactivateFood();
     }
 }

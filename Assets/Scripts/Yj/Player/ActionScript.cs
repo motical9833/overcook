@@ -236,8 +236,12 @@ public class ActionScript : MonoBehaviour
                                     else
                                     {
                                         Debug.Log("음식이 든 식를 제출함");
+
                                         recipeOrderCtrlScr = GameObject.FindGameObjectWithTag("MainCanvas").transform.GetChild(0).GetComponent<RecipeOrderControllerScript>();
                                         recipeOrderCtrlScr.ServeFood(platedFoodName);
+                                        plateScr.Reset();
+                                        Release(ref currGrabObj);
+
 /*                                        if (recipeOrderCtrlScr != null) 
                                         {
                                             recipeOrderCtrlScr = GameObject.FindGameObjectWithTag("MainCanvas").transform.GetChild(0).GetComponent<RecipeOrderControllerScript>();
@@ -400,4 +404,11 @@ public class ActionScript : MonoBehaviour
         isGrab = false;
     }
 
+    public void Release(ref GameObject grabObj)
+    {
+        grabObj.SendMessage("Release");
+        grabObj.transform.parent = null;
+        grabObj = null;
+        isGrab = false;
+    }
 }
