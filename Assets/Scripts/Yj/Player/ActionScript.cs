@@ -15,7 +15,7 @@ public class ActionScript : MonoBehaviour
     GameObject currGrabObj = null; // 현재 내가 집어들고 있는 오브젝트
     GameObject currCuttingBoard = null; // 현재 내가 사용하고 있는 보드
 
-    bool isGrab = false;
+    public bool isGrab = false;
     bool isChop = false;
 
     //grab과 release는 space로 작동
@@ -231,6 +231,7 @@ public class ActionScript : MonoBehaviour
                                     if (platedFoodName == "")
                                     {
                                         Debug.Log("빈 식기를 내려고 시도함");
+                                        collider.gameObject.GetComponent<PlateStationScript>().SetPlateReturn(currGrabObj);
                                         return false;
                                     }
                                     else
@@ -239,20 +240,22 @@ public class ActionScript : MonoBehaviour
 
                                         recipeOrderCtrlScr = GameObject.FindGameObjectWithTag("MainCanvas").transform.GetChild(0).GetComponent<RecipeOrderControllerScript>();
                                         recipeOrderCtrlScr.ServeFood(platedFoodName);
-                                        plateScr.Reset();
+                                        plateScr.ResetPlate();
                                         Release(ref currGrabObj);
+                                        return true;
 
-/*                                        if (recipeOrderCtrlScr != null) 
-                                        {
-                                            recipeOrderCtrlScr = GameObject.FindGameObjectWithTag("MainCanvas").transform.GetChild(0).GetComponent<RecipeOrderControllerScript>();
-                                            recipeOrderCtrlScr.ServeFood(platedFoodName);
-                                            if (recipeOrderCtrlScr.CompareWithRecipeName(platedFoodName))
-                                            {
-                                                //recipeOrderCtrlScr.RequestMatchRemoveQueue();
-                                                //점수랑 연결
+                                                /*  if (recipeOrderCtrlScr != null) 
+                                                   {
+                                                       recipeOrderCtrlScr = GameObject.FindGameObjectWithTag("MainCanvas").transform.GetChild(0).GetComponent<RecipeOrderControllerScript>();
+                                                       recipeOrderCtrlScr.ServeFood(platedFoodName);
+                                                       if (recipeOrderCtrlScr.CompareWithRecipeName(platedFoodName))
+                                                       {
+                                                           //recipeOrderCtrlScr.RequestMatchRemoveQueue();
+                                                           //점수랑 연결
+
+                                                       }
+                                                   }*/
                                             }
-                                        }*/
-                                    }
                                 }
                                 return false;
                         }

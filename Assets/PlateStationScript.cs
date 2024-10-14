@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class PlateStationScript : MonoBehaviour
 {
-    public GameObject plateReturnObject;
+    public Transform plateReturnTr;
     void Start()
     {
-        plateReturnObject = GameObject.FindGameObjectWithTag("PlateReturn");
+        plateReturnTr = transform.GetChild(0);
     }
 
 
-    void Update()
+
+    public void SetPlateReturn(GameObject plate)
     {
-        
+        plate.transform.SetParent(plateReturnTr, false);
+        plate.SetActive(false);
     }
 }

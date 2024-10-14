@@ -8,7 +8,7 @@ public class PlateScript : GrabAbleObjScript
 
     public string plateFoodName;
 
-    GameObject cookingParent;
+    public GameObject cookingParent;
 
 
     void Start()
@@ -35,8 +35,9 @@ public class PlateScript : GrabAbleObjScript
 
     }
 
-    public void Reset()
+    public void ResetPlate()
     {
         cookingParent.GetComponent<CookingScript>().DeactivateFood();
     }
 }
+ 
