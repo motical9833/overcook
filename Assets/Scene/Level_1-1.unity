@@ -43106,7 +43106,7 @@ GameObject:
   - component: {fileID: 6394984282361427923}
   - component: {fileID: 6394984282361427924}
   m_Layer: 0
-  m_Name: Worktop
+  m_Name: PlateReturn
   m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

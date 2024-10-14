@@ -10,11 +10,11 @@ public class PlateStationScript : MonoBehaviour
         plateReturnTr = transform.GetChild(0);
     }
 
-
-
     public void SetPlateReturn(GameObject plate)
     {
         plate.transform.SetParent(plateReturnTr, false);
         plate.SetActive(false);
+
+        plateReturnTr.GetComponent<PlateReturnScript>().SettingTablePlate();
     }
 }

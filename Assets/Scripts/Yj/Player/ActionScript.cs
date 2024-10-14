@@ -231,7 +231,6 @@ public class ActionScript : MonoBehaviour
                                     if (platedFoodName == "")
                                     {
                                         Debug.Log("빈 식기를 내려고 시도함");
-                                        collider.gameObject.GetComponent<PlateStationScript>().SetPlateReturn(currGrabObj);
                                         return false;
                                     }
                                     else
@@ -241,6 +240,7 @@ public class ActionScript : MonoBehaviour
                                         recipeOrderCtrlScr = GameObject.FindGameObjectWithTag("MainCanvas").transform.GetChild(0).GetComponent<RecipeOrderControllerScript>();
                                         recipeOrderCtrlScr.ServeFood(platedFoodName);
                                         plateScr.ResetPlate();
+                                        collider.gameObject.GetComponent<PlateStationScript>().SetPlateReturn(currGrabObj);
                                         Release(ref currGrabObj);
                                         return true;
 
@@ -410,7 +410,6 @@ public class ActionScript : MonoBehaviour
     public void Release(ref GameObject grabObj)
     {
         grabObj.SendMessage("Release");
-        grabObj.transform.parent = null;
         grabObj = null;
         isGrab = false;
     }

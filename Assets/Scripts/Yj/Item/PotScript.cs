@@ -201,6 +201,11 @@ public class PotScript : GrabAbleObjScript
         soup_object.SetActive(false);
         potUICtrlScr.HideAddedImage();
 
+        boilingTimer = 0;
+        burningTimer = 0;
+        isboiledDone = false;
+
+
         return true;
     }
 
