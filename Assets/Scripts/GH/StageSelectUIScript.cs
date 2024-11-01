@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 using TMPro;
-//using UnityEditor.PackageManager.Requests;
+using UnityEditor.PackageManager.Requests;
 
 public class StageSelectUIScript : MonoBehaviour
 {
