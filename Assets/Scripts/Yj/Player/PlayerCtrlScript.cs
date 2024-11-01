@@ -23,6 +23,8 @@ public class PlayerCtrlScript : NetworkBehaviour
     [Range(500, 1000)]
     public float rotSpeed;
 
+    bool bMove = false;
+
     #region"부속품"
     [SerializeField]
     private GameObject handGrip_L, handGrip_R;
@@ -43,6 +45,8 @@ public class PlayerCtrlScript : NetworkBehaviour
 
     Enummrous.GrabState pGrabState;
 
+    public AudioSource[] audioSources;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,13 +62,15 @@ public class PlayerCtrlScript : NetworkBehaviour
 
         pActionScript = transform.GetComponent<ActionScript>();
         pActionScript.InitialSet(frontCol,hand);
+
+        audioSources = this.GetComponents<AudioSource>();
     }
 
     private void Update()
     {
-        if (!IsOwner)
+        if (bMove)
         {
-
+            return;
         }
 
         if (pAnimScript.GetAnimState() == PlayerAnimState.Chop)
@@ -80,9 +86,9 @@ public class PlayerCtrlScript : NetworkBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if(!IsOwner)
+        if (bMove)
         {
-           //return;
+            return;
         }
         //정면의 콜라이더를 체크하고 각각에 맞는 태그면 넘어가자
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -117,6 +123,7 @@ public class PlayerCtrlScript : NetworkBehaviour
                             break;
                     }
                     pGrabState = GrabState.Grab;
+                    audioSources[1].Play();
                 }
                 else if(pGrabState == GrabState.Grab)
                 {
@@ -130,6 +137,7 @@ public class PlayerCtrlScript : NetworkBehaviour
                             break;
                     }
                     pGrabState = GrabState.Release;
+                    audioSources[2].Play();
                 }
             }
         }
@@ -142,10 +150,10 @@ public class PlayerCtrlScript : NetworkBehaviour
 
     void FixedUpdate()
     {
-        /*  if(!IsOwner)
+        if (bMove)
         {
             return;
-        }*/
+        }
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         if (h != 0 || v != 0)
@@ -184,5 +192,8 @@ public class PlayerCtrlScript : NetworkBehaviour
         }
     }
 
-  
+    public void SetPlayerStop(bool isStop)
+    {
+        bMove = isStop;
+    }
 }

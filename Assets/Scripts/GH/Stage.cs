@@ -76,7 +76,7 @@ public class Stage : MonoBehaviour
     {
         if(stageInfo.isAble == false)
         {
-            this.gameObject.gameObject.SetActive(false);
+            this.gameObject.SetActive(false);
         }
     }
 

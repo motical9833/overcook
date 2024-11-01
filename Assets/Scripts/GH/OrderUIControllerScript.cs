@@ -6,6 +6,7 @@ using UnityEngine;
 public class OrderUIControllerScript : MonoBehaviour
 {
     float currentTime = 0.0f;
+    float orderTime = 30.0f;
 
     bool isStart = false;
 
@@ -30,7 +31,7 @@ public class OrderUIControllerScript : MonoBehaviour
 
         currentTime += Time.deltaTime;
 
-        if (currentTime >= 20.0f || orderPanal.transform.GetChild(0).GetComponent<RecipeOrderControllerScript>().GetOrderCount() == 0)
+        if (currentTime >= orderTime || orderPanal.transform.GetChild(0).GetComponent<RecipeOrderControllerScript>().GetOrderCount() == 0)
         {
             orderPanal.transform.GetChild(0).GetComponent<RecipeOrderControllerScript>().FoodOrderComesIn(new Vector3(90.0f, 1030.0f, 0));
             currentTime = 0.0f;

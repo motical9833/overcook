@@ -7,20 +7,22 @@ using UnityEngine;
 
 public class StageTimerScript : MonoBehaviour
 {
-    float stageTimeLimit = 300.0f;
+    float stageTimeLimit = 180.0f;
     float timeupTime = 5.0f;
     TextMeshProUGUI textMeshGUI = null;
     bool isStart = false;
     bool isTimeUP = false;
-    public event Action EndTimeLimeted;
+    //public event Action EndTimeLimeted;
 
     StageSummaryControllerScript stageSummaryControllerScript;
+    public StageManagerScript stageManager;
 
     void Start()
     {
         textMeshGUI = this.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         textMeshGUI.text = (stageTimeLimit / 60.0f).ToString() + ":" + (stageTimeLimit % 60.0f).ToString();
         stageSummaryControllerScript = GameObject.FindGameObjectWithTag("StageManager").GetComponent<StageSummaryControllerScript>();
+        stageManager = GameObject.FindWithTag("StageManager").GetComponent<StageManagerScript>();
     }
 
     void Update()
@@ -36,6 +38,7 @@ public class StageTimerScript : MonoBehaviour
         {
             isStart = false;
             isTimeUP = true;
+            
             StartCoroutine(TimeUPUICoroutine());
         }
     }
@@ -50,7 +53,7 @@ public class StageTimerScript : MonoBehaviour
         GameObject timeUpPanal = this.transform.GetChild(2).gameObject;
         timeUpPanal.SetActive(true);
         timeUpPanal.GetComponent<TimeUPUIScript>().TimeUP();
-
+        stageManager.StageScriptStop();
 
         bgmScript.StartBGM("TimesUpSting",false);
 

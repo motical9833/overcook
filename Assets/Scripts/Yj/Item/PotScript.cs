@@ -15,7 +15,7 @@ public class PotScript : GrabAbleObjScript
     public float[] alertTimes = new float[4];
     private float alertTimer = 0.0f;
 
-    private float boilingDoneTime = 10.0f;
+    private float boilingDoneTime = 7.0f;
     private float boilingTimer = 0.0f;
 
     private float burningTimer = 0.0f;
@@ -40,6 +40,8 @@ public class PotScript : GrabAbleObjScript
     public AudioSource addIngredientAudioSource;
 
     public GameObject soup_object;
+
+    bool bStop = false;
 
     void Start()
     {
@@ -102,7 +104,7 @@ public class PotScript : GrabAbleObjScript
 
     public void Boiled()
     {
-        if(isFire)
+        if(isFire || bStop)
         {
             return;
         }
@@ -184,6 +186,16 @@ public class PotScript : GrabAbleObjScript
         }
     }
 
+
+    public void PotScriptStop()
+    {
+        bStop = true;
+    }
+
+    public void PotScriptPlay()
+    {
+        bStop = false;
+    }
 
     public bool GetIsCookedDone()
     {

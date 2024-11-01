@@ -14,7 +14,7 @@ public class MoveScript : MonoBehaviour
 
     bool isDashing;
     bool isDashCool;
-    bool isReachMaxSpeed = false;
+    //bool isReachMaxSpeed = false;
 
     AudioSource audiosource;
 

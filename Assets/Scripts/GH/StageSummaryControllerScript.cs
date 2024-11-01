@@ -25,16 +25,12 @@ public class StageSummaryControllerScript : MonoBehaviour
     GameObject mainCanvas;
     public GameObject mask;
 
-    public void Start()
+    public void Awake()
     {
         mainCanvas = GameObject.FindWithTag("MainCanvas");
         summaryData = new SummaryData();
         mask = GameObject.FindWithTag("Mask");
         stageSummaryScript = GameObject.FindWithTag("MainCanvas").transform.GetChild(4).GetComponent<StageSummaryScript>();
-
-        summaryData.orderDelivered = 6;
-        summaryData.tips = 7;
-        summaryData.orderFailedCount = 0;
 
         if (!stageSummaryScript)
         {
@@ -59,9 +55,9 @@ public class StageSummaryControllerScript : MonoBehaviour
     }
 
     public SummaryData GetSummaryData(){ return summaryData; }
-    public void SetOrderDelivered(int score){ summaryData.orderDelivered = score; }
-    public void SetTips(int tip){ summaryData.tips = tip; }
-    public void SetOrderFailedCount(int count) { summaryData.orderFailedCount = count; }
+    public void SetOrderDelivered(int count){ summaryData.orderDelivered += count; }
+    public void SetTips(int tip){ summaryData.tips += tip; }
+    public void SetOrderFailedCount(int count) { summaryData.orderFailedCount += count; }
     public int GetOrderDelivered(){ return summaryData.orderDelivered; }
     public int GetTips(){ return summaryData.tips; }
     public int GetOrderFailedCount() { return summaryData.orderFailedCount; }

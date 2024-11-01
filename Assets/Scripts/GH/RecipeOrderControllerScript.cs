@@ -38,8 +38,6 @@ public class RecipeOrderControllerScript : MonoBehaviour
         }
     }
 
-
-
     //public GameObject gameManager;
 
     public List<Recipe> recipeClass = new List<Recipe>();
@@ -50,6 +48,8 @@ public class RecipeOrderControllerScript : MonoBehaviour
     int orderCnt = 0;
     bool isFull = false;
 
+    StagePointScript stagePointScript;
+    StageSummaryControllerScript stageSummaryControllerScript;
     void Start()
     {
         GameObject gameManager = GameObject.FindWithTag("GameManager");
@@ -67,6 +67,15 @@ public class RecipeOrderControllerScript : MonoBehaviour
         {
             SpawnRecipe(recipes);
         }
+
+        stagePointScript = this.transform.parent.GetChild(1).GetComponent<StagePointScript>();
+
+        if(stagePointScript == null)
+        {
+            Debug.Log("stagePointScript를 찾을 수 없음");
+        }
+
+        stageSummaryControllerScript = GameObject.FindWithTag("StageManager").GetComponent<StageSummaryControllerScript>();
     }
 
     private void Update()
@@ -166,7 +175,8 @@ public class RecipeOrderControllerScript : MonoBehaviour
         orderCnt--;
         isFull = false;
 
-        Debug.Log("점수 10점 획득!!");
+        stageSummaryControllerScript.SetOrderDelivered(1);
+        stagePointScript.SetPoint(20);
         OrderUIRelocation();
     }
 

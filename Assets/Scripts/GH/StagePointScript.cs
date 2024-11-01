@@ -16,7 +16,7 @@ public class StagePointScript : MonoBehaviour
 
     public void SetPoint(int value)
     {
-        point = value;
+        point += value;
 
         textMeshProGUI.text = point.ToString();
     }

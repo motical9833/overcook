@@ -7,7 +7,7 @@ public class FireExtinguisher : GrabAbleObjScript
 {
     public ParticleSystem powderParticle;
 
-    bool isSpaying;
+    //bool isSpaying = false;
 
     public AudioSource sprayStartSource;
     public AudioSource sprayLoopSource;
@@ -28,8 +28,9 @@ public class FireExtinguisher : GrabAbleObjScript
         if (isKeyPressed && !wasKeyPressed)
         {
             // 키가 눌리기 시작한 경우 (시작)
+            //
             powderParticle.Play();
-            isSpaying = true;
+            //isSpaying = true;
             sprayStartSource.Play();
         }
         else if (!isKeyPressed && wasKeyPressed)

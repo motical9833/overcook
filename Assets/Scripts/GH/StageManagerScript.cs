@@ -11,17 +11,33 @@ public class StageManagerScript : MonoBehaviour
     public StageTimerScript stageTimerScript;
     public StagePointScript stagePointScript;
     public StageStartScript stageStartScript;
-
     public StageSaveLoadScript stageSaveLoadScript;
+    public List<PotScript> potScripts;
+    public List<GameObject> players;
 
     public GameObject mainCanvas;
+
 
     void Start()
     {
         stageSaveLoadScript = GameObject.FindGameObjectWithTag("GameManager")?.GetComponent<StageSaveLoadScript>();
         mainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").gameObject;
 
-        if(!stageSaveLoadScript || !mainCanvas)
+        GameObject[] pots = GameObject.FindGameObjectsWithTag("Pot");
+
+        for (int i = 0; i < pots.Length; i++)
+        {
+            potScripts.Add(pots[i].GetComponent<PotScript>());
+        }
+
+        GameObject[] playerArr = GameObject.FindGameObjectsWithTag("Player");
+
+        for (int i = 0; i < playerArr.Length; i++)
+        {
+            players.Add(playerArr[i]);
+        }
+
+        if (!stageSaveLoadScript || !mainCanvas)
         {
             Debug.Log("스크립트를 찾을 수 없음");
             return;
@@ -118,5 +134,31 @@ public class StageManagerScript : MonoBehaviour
         orderUIControllerScript.OrderStart();
         stageTimerScript.StartTimer();
         //stageTimerScript.EndTimeLimeted += GameClear;
+    }
+
+    public void StageScriptStop()
+    {
+        for (int i = 0; i < potScripts.Count; i++)
+        {
+            potScripts[i].PotScriptStop();
+        }
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].GetComponent<PlayerCtrlScript>().SetPlayerStop(true);
+        }
+    }
+
+    public void StageScriptPlay()
+    {
+        for (int i = 0; i < potScripts.Count; i++)
+        {
+            potScripts[i].PotScriptPlay();
+        }
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].GetComponent<PlayerCtrlScript>().SetPlayerStop(false);
+        }
     }
 }
