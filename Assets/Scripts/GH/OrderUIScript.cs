@@ -18,6 +18,8 @@ public class OrderUIScript : MonoBehaviour
 
     AudioSource m_AudioSource;
 
+    bool bStop = false;
+
     void Start()
     {
         currentTimer = initialTimer;
@@ -32,6 +34,11 @@ public class OrderUIScript : MonoBehaviour
 
     void Update()
     {
+        if(bStop)
+        {
+            return;
+        }
+
         currentTimer -= Time.deltaTime;
 
         float ratio = Mathf.Clamp01(currentTimer / initialTimer);
