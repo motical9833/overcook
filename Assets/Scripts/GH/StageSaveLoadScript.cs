@@ -132,6 +132,6 @@ public class StageSaveLoadScript : MonoBehaviour
 
         sceneMainCanvas.GetComponent<StarCountUIScript>().ApplyStarCountUI(allStarCount);
 
-        Debug.Log("스타 개수" + allStarCount);
+        //Debug.Log("스타 개수" + allStarCount);
     }
 }

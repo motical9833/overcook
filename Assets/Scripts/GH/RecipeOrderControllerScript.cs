@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -164,6 +164,17 @@ public class RecipeOrderControllerScript : MonoBehaviour
             return;
         }
 
+        if(stagePointScript == null)
+        {
+            Debug.Log("stagePointScript가 없음");
+        }
+        else
+        {
+            Debug.Log("stagePointScript가 존재함");
+        }
+
+        stagePointScript.SetPoint(20);
+
         servefood.OrderNumber = 0;
         servefood.RecipeUIObject.GetComponent<OrderUIScript>().ResetTimer();
         servefood.RecipeUIObject.GetComponent<RecipeUIMoveEffectScript>().ResetUIPos();
@@ -176,7 +187,6 @@ public class RecipeOrderControllerScript : MonoBehaviour
         isFull = false;
 
         stageSummaryControllerScript.SetOrderDelivered(1);
-        stagePointScript.SetPoint(20);
         OrderUIRelocation();
     }
 

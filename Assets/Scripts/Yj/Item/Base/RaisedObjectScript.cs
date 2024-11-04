@@ -33,7 +33,10 @@ public class RaisedObjectScript : MonoBehaviour
     public void Release()
     {
         raisedObj = null;
+
+#if UNITY_EDITOR
         Debug.Log("올린 물품 제거");
+#endif
     }
 
     public GameObject GetTopRaisedObj()

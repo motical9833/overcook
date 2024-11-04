@@ -6,25 +6,47 @@ using UnityEngine;
 
 public class IngredientsDataScript : MonoBehaviour
 {
-    public string csvFilePath = "Assets/Resources/IngredientData/IngredientData.csv";
+    public string csvFileName = "IngredientData.csv";
     private Dictionary<string, Vector2> ingredientOffsets;
+
+    //CSVReader reader;
 
     private void Awake()
     {
         LoadCSVData();
         Vector2 onionOffset = GetIngredientOffset("Onion");
         //Debug.Log($"Onion Offset: {onionOffset}");
+
+        //reader = new CSVReader();
     }
 
     private void LoadCSVData()
     {
         ingredientOffsets = new Dictionary<string, Vector2>();
 
-        var ingredientDataList = CSVLoader.LoadCSV<IngredientData>(csvFilePath, ConvertToIngredientData);
+        string csvFilePath = Path.Combine(Application.streamingAssetsPath, csvFileName);
 
-        foreach(var data in ingredientDataList)
+        var result = CSVReader.ParseCSV(File.ReadAllText(csvFilePath));
+
+        foreach (var line in result)
         {
-            ingredientOffsets[data.Ingredient] = new Vector2(data.OffsetX, data.OffsetY);
+            string key = line[0];
+
+            // offsetX와 offsetY 변수를 초기화하고 변환 시도
+            float offsetX = 0f;
+            float offsetY = 0f;
+
+            if (!float.TryParse(line[1], out offsetX))
+            {
+                Debug.Log("string 문자열 예외처리");
+            }
+            if (!float.TryParse(line[2], out offsetY))
+            {
+                Debug.Log("string 문자열 예외처리");
+            }
+
+            // 변환에 성공한 값만 Dictionary에 추가
+            ingredientOffsets[key] = new Vector2(offsetX, offsetY);
         }
     }
 

@@ -39,7 +39,9 @@ public class StageManagerScript : MonoBehaviour
 
         if (!stageSaveLoadScript || !mainCanvas)
         {
+#if UNITY_EDITOR
             Debug.Log("스크립트를 찾을 수 없음");
+#endif
             return;
         }
 

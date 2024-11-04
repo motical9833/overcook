@@ -18,7 +18,9 @@ public class StageSelectSceneControllerScript : MonoBehaviour
 
         if (mapObject == null)
         {
+#if UNITY_EDITOR
             Debug.Log("MapObject가 존재하지 않음!");
+#endif
             return;
         }
 

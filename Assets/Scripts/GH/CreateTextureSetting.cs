@@ -13,10 +13,14 @@ public class CreateTextureSetting : MonoBehaviour
     void Start()
     {
         ingredientsData = GameObject.FindWithTag("StageManager").GetComponent<IngredientsDataScript>();
-        offset = ingredientsData.GetIngredientOffset(this.name);
-        skinnedMeshRenderer = gameObject.GetComponent<Transform>().GetChild(2).GetComponent<Renderer>();
-        propertyBlock = new MaterialPropertyBlock();
 
+        offset = ingredientsData.GetIngredientOffset(this.name);
+
+        //Debug.Log(offset);
+
+        skinnedMeshRenderer = gameObject.GetComponent<Transform>().GetChild(2).GetComponent<Renderer>();
+
+        propertyBlock = new MaterialPropertyBlock();
 
         skinnedMeshRenderer.GetPropertyBlock(propertyBlock);
         propertyBlock.SetVector("_MainTex_ST", new Vector4(0.5f, 0.5f, offset.x, offset.y));

@@ -138,7 +138,10 @@ public class PotScript : GrabAbleObjScript
                 boilingTimer += Time.deltaTime;
                 potUICtrlScr.ShowBoilingGuage(boilingTimer);
                 isboiledDone = false;
+
+#if UNITY_EDITOR
                 Debug.Log("ฒ๚ภฬดย ม฿");
+#endif
             }
         }
     }

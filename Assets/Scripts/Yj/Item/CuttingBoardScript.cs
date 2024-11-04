@@ -43,14 +43,20 @@ public class CuttingBoardScript : RaisedObjectScript
     public void AddCutter()
     {
         cutters += 1;
+
+#if UNITY_EDITOR
         Debug.Log(cutters);
+#endif
     }
 
 
     public void RemoveCutter()
     {
         cutters -= 1;
+
+#if UNITY_EDITOR
         Debug.Log(cutters);
+#endif
     }
 
 

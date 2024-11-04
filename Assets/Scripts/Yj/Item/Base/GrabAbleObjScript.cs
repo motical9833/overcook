@@ -17,9 +17,11 @@ public class GrabAbleObjScript : MonoBehaviour
         rb.isKinematic = true;
         transform.localRotation = Quaternion.identity;
 
+#if UNITY_EDITOR
         Debug.Log("Grabbed");
+#endif
 
-        if(transform.GetComponent<BoxCollider>())
+        if (transform.GetComponent<BoxCollider>())
         {
             transform.GetComponent<BoxCollider>().isTrigger = true;
         }

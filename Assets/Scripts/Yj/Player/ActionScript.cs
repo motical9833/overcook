@@ -97,7 +97,9 @@ public class ActionScript : MonoBehaviour
 
     public bool BarAction()
     {
+#if UNITY_EDITOR
         Debug.Log("Barpress");
+#endif
 
         Bounds fColBound = frontCol.bounds;
         Collider[] hitColliders = Physics.OverlapBox(fColBound.center, fColBound.extents, Quaternion.identity);
@@ -230,32 +232,23 @@ public class ActionScript : MonoBehaviour
                                     string platedFoodName =  plateScr.GetPlateFoodName();
                                     if (platedFoodName == "")
                                     {
+#if UNITY_EDITOR
                                         Debug.Log("빈 식기를 내려고 시도함");
+#endif
                                         return false;
                                     }
                                     else
                                     {
+#if UNITY_EDITOR
                                         Debug.Log("음식이 든 식를 제출함");
-
+#endif
                                         recipeOrderCtrlScr = GameObject.FindGameObjectWithTag("MainCanvas").transform.GetChild(0).GetComponent<RecipeOrderControllerScript>();
                                         recipeOrderCtrlScr.ServeFood(platedFoodName);
                                         plateScr.ResetPlate();
                                         collider.gameObject.GetComponent<PlateStationScript>().SetPlateReturn(currGrabObj);
                                         Release(ref currGrabObj);
                                         return true;
-
-                                                /*  if (recipeOrderCtrlScr != null) 
-                                                   {
-                                                       recipeOrderCtrlScr = GameObject.FindGameObjectWithTag("MainCanvas").transform.GetChild(0).GetComponent<RecipeOrderControllerScript>();
-                                                       recipeOrderCtrlScr.ServeFood(platedFoodName);
-                                                       if (recipeOrderCtrlScr.CompareWithRecipeName(platedFoodName))
-                                                       {
-                                                           //recipeOrderCtrlScr.RequestMatchRemoveQueue();
-                                                           //점수랑 연결
-
-                                                       }
-                                                   }*/
-                                            }
+                                    }
                                 }
                                 return false;
                         }
