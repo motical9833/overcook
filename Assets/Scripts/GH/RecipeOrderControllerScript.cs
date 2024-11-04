@@ -15,7 +15,7 @@ public class RecipeOrderControllerScript : MonoBehaviour
         public GameObject RecipeUIObject
         {
             get { return recipeUIObject; }
-            private set { recipeUIObject = value; } 
+            private set { recipeUIObject = value; }
         }
 
         int orderNumber;
@@ -58,10 +58,16 @@ public class RecipeOrderControllerScript : MonoBehaviour
 
         if (gameManager == null)
         {
+            Debug.Log("GameManager를 찾을 수 없음");
             return;
         }
 
         List<string> recipes = gameManager.GetComponent<CookingSchedulerScript>().GetOrdersData(name);
+
+        if (recipes.Count == 0 || recipes == null)
+        {
+            Debug.Log("recipes를 찾을 수 없음");
+        }
 
         if (recipes != null && recipes.Count > 0)
         {
@@ -93,13 +99,33 @@ public class RecipeOrderControllerScript : MonoBehaviour
 
     private void SpawnRecipe(List<string> recipes)
     {
+        Debug.Log("SpawnRecipe 시작");
+
         Transform parentTr = this.gameObject.GetComponent<Transform>().GetChild(0);
+
+        if(parentTr == null)
+        {
+            Debug.Log("parentTr를 찾을 수없음");
+        }
+        else
+        {
+            Debug.Log("parentTr를 찾음 ! :" + parentTr);
+        }
 
         for (int i = 0; i < recipes.Count; i++)
         {
             string recipeName = recipes[i];
 
             GameObject prefab = Resources.Load<GameObject>("GHPrefabs/Foods/" + recipeName);
+
+            if(prefab == null)
+            {
+                Debug.Log("프리팹을 찾을 수 없음");
+            }
+            else
+            {
+                Debug.Log("프리팹을 찾음! : " + prefab);
+            }
 
             if (prefab != null)
             {

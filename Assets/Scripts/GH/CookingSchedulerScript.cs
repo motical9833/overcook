@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class CookingSchedulerScript : MonoBehaviour
 {
-    public string csvFilePath = "Assets/Resources/StageData/StageOrderData.csv";
+    public string csvFileName = "StageOrderData.csv";
     private Dictionary<string, List<string>> order;
+    private Dictionary<string, List<string>> order_2;
     GameObject gameManager;
 
     private void Awake()
@@ -18,11 +20,33 @@ public class CookingSchedulerScript : MonoBehaviour
     {
         order = new Dictionary<string, List<string>>();
 
-        var orderDataList = CSVLoader.LoadCSV<StageOrderData>(csvFilePath, ConvertToOrderData);
-            
-        foreach (var data in orderDataList)
+        string csvFilePath = Path.Combine(Application.streamingAssetsPath, csvFileName);
+
+        //var orderDataList = CSVLoader.LoadCSV<StageOrderData>(csvFilePath, ConvertToOrderData);
+
+        var result = CSVReader.ParseCSV(File.ReadAllText(csvFilePath));
+
+        for (int i = 0; i < result.Count; i++)
         {
-            order[data.stageLevel] = data.Orders;
+            if (result[i].Count > 1)
+            {
+                string key = result[i][0];
+                List<string> values = result[i].GetRange(1, result[i].Count - 1);
+
+                if(!order.ContainsKey(key))
+                {
+                    order.Add(key, values);
+                }
+                else
+                {
+                    Debug.Log("키가 이미 존재함");
+                }
+            }
+            else
+            {
+                Debug.Log("키에 맞는 List<string>의 길이가 1보다 작음");
+            }
+
         }
     }
 
