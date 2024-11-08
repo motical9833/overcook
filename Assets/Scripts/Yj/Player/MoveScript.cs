@@ -9,7 +9,7 @@ public class MoveScript : MonoBehaviour
     float moveSpeed;
     float rotSpeed;
 
-    float dashAccMaxSpeed = 7.00f;
+    float dashAccMaxSpeed = 0.07f;
     float dashAccSpeed = 0.0f;
 
     bool isDashing;

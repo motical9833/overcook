@@ -54,6 +54,8 @@ public class StageManagerScript : MonoBehaviour
         StartCoroutine(GameStartCoroutine());
     }
 
+    // 게임을 클리어 하였을 때의 점수들을 GameManager에 전달하고
+    // 씬을 로드하였을 때 이벤트를 추가하는 함수
     public void GameClear()
     {
         string name = SceneManager.GetActiveScene().name;
@@ -72,7 +74,8 @@ public class StageManagerScript : MonoBehaviour
 
         SceneLoadEvent();
     }
-
+    
+    // 씬이 로드될때 실행되는 이벤트 함수
     private void SceneLoadEvent()
     {
         SceneManager.LoadSceneAsync("StageSelectScene");
@@ -96,7 +99,7 @@ public class StageManagerScript : MonoBehaviour
         GameObject.Find(name).GetComponent<Stage>().SaveStageData(info);
     }
 
-
+    // StageSelectScene이 로드될때 필요한 데이터를 전달하고 씬을 로드하는 함수
     public void SaveClearDataAndLoadScene(Scene scene, LoadSceneMode mode)
     {
         StageInfo info = stageSaveLoadScript.GetPrevStageInfo();
@@ -109,16 +112,21 @@ public class StageManagerScript : MonoBehaviour
 
         GameObject audioManager = GameObject.FindWithTag("AudioManager");
 
+        // StageSelectScene의 StageObject에 데이터를 전달하는 함수
         stage.GetComponent<Stage>().SaveStageData(info);
 
+        // 전체 Star의 갯수를 가져오는 함수
         int count = info.GetStarCount();
 
+        // 클리어된 스테이지들의 Star 갯수를 적용 시키는 함수
         stage.GetComponent<StarLevelUIControllerScript>().SetStarImageBasedOnCount(count);
 
+        // 잠겨져 있는 스테이지를 오픈하는 함수
         GameObject.FindWithTag("StageObject").GetComponent<StageObjectsControllerScript>().OpenStage();
 
         int procedure = stage.GetComponent<Stage>().GetStageInfo().procedure;
 
+        // Scene이 로드된 후 Tile과 Path에 이벤트를 실행 시키는 함수
         mapObject.GetComponent<MapGridController>().TileFlipping(procedure + 1);
         mapObject.GetComponent<MapPathsControllerScript>().OpenPath(procedure);
 
@@ -135,7 +143,6 @@ public class StageManagerScript : MonoBehaviour
 
         orderUIControllerScript.OrderStart();
         stageTimerScript.StartTimer();
-        //stageTimerScript.EndTimeLimeted += GameClear;
     }
 
     public void StageScriptStop()

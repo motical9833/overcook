@@ -46,14 +46,14 @@ public class OrderUIControllerScript : MonoBehaviour
 
         isStart = true;
     }
+    public void OrderStart()
+    {
+        StartCoroutine(GameStartCorutine());
+    }
 
     public void ServingDishes(string orderName)
     {
         orderPanal.transform.GetChild(0).GetComponent<RecipeOrderControllerScript>().ServeFood(orderName);
     }
 
-    public void OrderStart()
-    {
-        StartCoroutine(GameStartCorutine());
-    }
 }

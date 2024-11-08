@@ -59,7 +59,6 @@ public class SelectStageScript : MonoBehaviour
         if (isSelectStage && Input.GetKeyDown(KeyCode.Escape) && stageObject != null)
         {
             stageSelectUIScript.ExitStageSelect();
-            //this.GetComponent<GHMoveScript>().IsMove(true);
             this.transform.parent.GetComponent<GHMoveScript>().IsMove(false);
             isSelectStage = false;
         }

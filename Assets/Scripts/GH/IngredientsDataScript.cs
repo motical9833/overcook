@@ -9,18 +9,14 @@ public class IngredientsDataScript : MonoBehaviour
     public string csvFileName = "IngredientData.csv";
     private Dictionary<string, Vector2> ingredientOffsets;
 
-    //CSVReader reader;
-
     private void Awake()
     {
-        LoadCSVData();
+        LoadIngredientOffsetData();
         Vector2 onionOffset = GetIngredientOffset("Onion");
-        //Debug.Log($"Onion Offset: {onionOffset}");
-
-        //reader = new CSVReader();
     }
 
-    private void LoadCSVData()
+    // IngredientBox의 OffsetData를 csv에서 읽어오는 함수
+    private void LoadIngredientOffsetData()
     {
         ingredientOffsets = new Dictionary<string, Vector2>();
 
@@ -76,6 +72,7 @@ public class IngredientsDataScript : MonoBehaviour
         }
         else
         {
+            Debug.Log("데이터가 존재하지 않음");
             return Vector2.zero;
         }
     }

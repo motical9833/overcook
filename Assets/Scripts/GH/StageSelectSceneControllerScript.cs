@@ -9,10 +9,11 @@ public class StageSelectSceneControllerScript : MonoBehaviour
 
     private void Start()
     {
-        SceneManager.sceneLoaded += SceneLoad;
+        SceneManager.sceneLoaded += StageSelectSceneLoadInitialize;
     }
 
-    public void SceneLoad(Scene scene, LoadSceneMode mode)
+    // StageSelectScene을 로드할 때 Gird와 MpaPath의 상태를 세팅하는 함수
+    public void StageSelectSceneLoadInitialize(Scene scene, LoadSceneMode mode)
     {
         mapObject = GameObject.FindGameObjectWithTag("MapObject");
 
@@ -24,7 +25,10 @@ public class StageSelectSceneControllerScript : MonoBehaviour
             return;
         }
 
+        // 저장된 MapGrid를 바탕으로 초기화 하는 함수
         mapObject.GetComponent<MapGridController>().InitializeObjectGroups();
+
+        // 저장된 MpaPath를 바탕으로 초기화 하는 함수
         mapObject.GetComponent<MapPathsControllerScript>().InitializePathGrop();
     }
 }

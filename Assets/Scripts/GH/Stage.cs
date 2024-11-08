@@ -41,8 +41,10 @@ public class Stage : MonoBehaviour
         Debug.Log("Stage data saved to " + filePath);
     }
 
+    // json파일로 저장된 스테이지 데이터 읽은 후 저장
     public void LoadStageData()     
     {
+        // 스테이지의 순서
         procedure = this.transform.GetSiblingIndex();
 
         if (File.Exists(filePath))

@@ -8,7 +8,7 @@ public class MapPathsScript : MonoBehaviour
 {
     public float changeDuration = 1.0f;
 
-    //스테이지를 로드할 때 활성화 시키늗 함수
+    //스테이지를 로드할 때 활성화 시키는 함수
 
     public void ActivePath(int procedure)
     {

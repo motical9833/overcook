@@ -23,7 +23,6 @@ public class GHMoveScript : MonoBehaviour
             Debug.Log("파티클 시스템을 가져오지 못했습니다.");
         }
     }
-
     void Update()
     {
         if (!isMove)

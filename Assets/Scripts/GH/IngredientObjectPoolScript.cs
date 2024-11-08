@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class IngredientObjectPoolScript : MonoBehaviour
@@ -13,19 +11,35 @@ public class IngredientObjectPoolScript : MonoBehaviour
 
     void Start()
     {
-        pool = new Queue<GameObject>();
+        pool = CreateObjectPool();
 
+        if(pool == null)
+        {
+            Debug.LogError("IngredientPool 객체 풀을 생성하지 못했음");
+        }
+    }
+
+    // Ingredient 객체 풀 생성 로직
+    private Queue<GameObject> CreateObjectPool()
+    {
+        Queue<GameObject> objectPool = new Queue<GameObject>();
         resourceName = gameObject.name + "/" + gameObject.name;
-
         prefab = Resources.Load("3D/Food_Objects/" + resourceName) as GameObject;
 
-        for (int i = 0; i < poolSize; i++)
+        if(prefab == null)
+        {
+            Debug.LogError("prefab을 찾을 수 없음");
+            return null;
+        }
+
+        // 풀 생성
+        for(int i = 0; i < poolSize; i++)
         {
             GameObject obj = Instantiate(prefab);
-            
+
             SphereCollider col = obj.AddComponent<SphereCollider>();
             col.radius = 0.004f;
-            col.center = new Vector3(0.0f, 0.004f,0.0f);
+            col.center = new Vector3(0.0f, 0.004f, 0.0f);
             col.isTrigger = false;
 
             Rigidbody rigid = obj.AddComponent<Rigidbody>();
@@ -40,8 +54,10 @@ public class IngredientObjectPoolScript : MonoBehaviour
             obj.transform.localPosition = Vector3.zero;
             obj.transform.parent = null;
             obj.SetActive(false);
-            pool.Enqueue(obj);
+            objectPool.Enqueue(obj);
         }
+
+        return objectPool;
     }
 
     private void Update()

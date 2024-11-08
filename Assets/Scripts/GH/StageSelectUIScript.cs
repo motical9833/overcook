@@ -5,8 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 using TMPro;
-//using UnityEditor.PackageManager.Requests;
-
 public class StageSelectUIScript : MonoBehaviour
 {
     private GameObject myStateUI;
@@ -53,11 +51,6 @@ public class StageSelectUIScript : MonoBehaviour
 
         myStateUI.SetActive(false);
         isSelect = false;
-    }
-
-    public void CancelStage()
-    {
-        myStateUI.SetActive(false);
     }
 
     public void StartStage(string sceneName)
