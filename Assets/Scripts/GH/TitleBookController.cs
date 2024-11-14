@@ -24,6 +24,7 @@ public class TitleBookController : MonoBehaviour
         }
     }
 
+    // TItleScene의 버튼 이벤트
     public void ClickTitleEvent()
     {
         myBook.GetComponent<BookCoverScript>().OpenCover();

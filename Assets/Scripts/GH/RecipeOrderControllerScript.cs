@@ -140,7 +140,8 @@ public class RecipeOrderControllerScript : MonoBehaviour
             }
         }
     }
-
+    
+    // 레시피 생성 메서드
     public void FoodOrderComesIn(Vector3 targetPos)
     {
         if (isFull)
@@ -148,6 +149,7 @@ public class RecipeOrderControllerScript : MonoBehaviour
             return;
         }
 
+        // Order의 위치값
         targetPos.x += 210 * orderCnt;
 
         Recipe recipe = recipeQueue.Dequeue();

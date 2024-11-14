@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class TitleSelectUIScript : MonoBehaviour
 {
+    // 현재 SelectArrow가 무엇을 가리키는지의 상태
     private enum State
     { 
         CAMPAIGN,
@@ -35,9 +36,12 @@ public class TitleSelectUIScript : MonoBehaviour
         {
             coolTIme += Time.deltaTime;
 
+            // 입력에 따라 UI 상태 변화 로직
             HandleInput();
+            // 현재 선택된 UI의 따른 로직 실행
             HandleSelection();
 
+            // SelectMenu가 해제되고 UI의 동작이 정지됨
             if(Input.GetKeyDown(KeyCode.Escape))
             {
                 DeActivateUIArrow();
@@ -46,6 +50,7 @@ public class TitleSelectUIScript : MonoBehaviour
         }
     }
 
+    // 위 또는 아래 방향키를 누르게 되면 SelectArrow의 상태가 변화하는 로직
     private void HandleInput()
     {
         if(Input.GetKeyDown(KeyCode.DownArrow) && state != State.QUIT)
@@ -58,6 +63,7 @@ public class TitleSelectUIScript : MonoBehaviour
         }
     }
 
+    // SelectArrow의 위치 변경 및 상태변화
     private void ChangeState(int direction)
     {
         state += direction;
@@ -71,8 +77,7 @@ public class TitleSelectUIScript : MonoBehaviour
         {
             switch (state)
             {
-                case State.CAMPAIGN:
-                    //StartCoroutine(SelectUIEvent("StageSelectScene"));
+                case State.CAMPAIGN: // StageSelectScene으로 전환
                     LoadScene("StageSelectScene");
                     break;
                 case State.VERSUS:
@@ -81,16 +86,25 @@ public class TitleSelectUIScript : MonoBehaviour
                     break;
                 case State.FESTIVE:
                     break;
-                case State.OPTIONS:
+                case State.OPTIONS: // 게임 옵션 선택창
                     break;
-                case State.CREDITS:
+                case State.CREDITS: // 게임 크레딧
                     break;
-                case State.QUIT:
+                case State.QUIT: // 게임 종료
+                    Application.Quit();
                     break;
                 default:
                     break;
             }
         }
+    }
+    private void LoadScene(string sceneName)
+    {
+        this.GetComponent<AudioSource>().Play();
+        coolTIme = 0;
+        isSelectMenu = false;
+        ResetUIArrow();
+        SceneManager.LoadScene(sceneName);
     }
 
     //LoadScene에서 씬전환할 때 오디오 셀렉트 사운드가 들리지 않게 되면 사용해야함
@@ -104,14 +118,8 @@ public class TitleSelectUIScript : MonoBehaviour
         LoadScene(sceneName);
     }
 
-    private void LoadScene(string sceneName)
-    {
-        this.GetComponent<AudioSource>().Play();
-        coolTIme = 0;
-        isSelectMenu = false;
-        ResetUIArrow();
-        SceneManager.LoadScene(sceneName);
-    }
+
+
 
     public void ActivateUIArrow()
     {

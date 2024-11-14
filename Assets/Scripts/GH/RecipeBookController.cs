@@ -39,31 +39,39 @@ public class RecipeBookController : MonoBehaviour
             islookCloser = true;
         }
 
+        // 카메라 이동
         if(isMoveing)
         {
-            currentTime += Time.deltaTime;
-            float time = Mathf.Clamp01(currentTime / moveDuration);
+            MoveCamera();
+        }
+    }
 
-            Vector3 startPos = islookCloser ? cameraPos[1] : cameraPos[0];
-            Vector3 endPos = islookCloser ? cameraPos[0] : cameraPos[1];
+    // 카메라 이동 로직
+    void MoveCamera()
+    {
+        currentTime += Time.deltaTime;
+        float time = Mathf.Clamp01(currentTime / moveDuration);
 
-            Quaternion startQuaternion = islookCloser ? Quaternion.Euler(cameraRot[1]) : Quaternion.Euler(cameraRot[0]);
-            Quaternion endQuaternion = islookCloser ? Quaternion.Euler(cameraRot[0]) : Quaternion.Euler(cameraRot[1]);
+        Vector3 startPos = islookCloser ? cameraPos[1] : cameraPos[0];
+        Vector3 endPos = islookCloser ? cameraPos[0] : cameraPos[1];
 
-            myCamera.transform.localPosition = Vector3.Lerp(startPos, endPos, time);
-            myCamera.transform.localRotation = Quaternion.Lerp(startQuaternion,endQuaternion, time);
+        Quaternion startQuaternion = islookCloser ? Quaternion.Euler(cameraRot[1]) : Quaternion.Euler(cameraRot[0]);
+        Quaternion endQuaternion = islookCloser ? Quaternion.Euler(cameraRot[0]) : Quaternion.Euler(cameraRot[1]);
+
+        myCamera.transform.localPosition = Vector3.Lerp(startPos, endPos, time);
+        myCamera.transform.localRotation = Quaternion.Lerp(startQuaternion, endQuaternion, time);
 
 
-            if (time >= 1.0f)
-            {
-                isMoveing = false;
-                currentTime = 0;
-            }
+        if (time >= 1.0f)
+        {
+            isMoveing = false;
+            currentTime = 0;
         }
     }
 
     public bool GetIsLookCloser(){ return islookCloser; }
 
+    // Cmaera의 움직임을 컨트롤 하기 위한 로직
     public void MovingCamera()
     {
         isMoveing = true;

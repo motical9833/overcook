@@ -7,6 +7,8 @@ public class StageObjectsControllerScript : MonoBehaviour
 {
     public List<GameObject> stageObject = new List<GameObject>();
 
+    // 스테이지 클리어 후 새로운 스테이지가 열렸을 때 클리어한 스테이지의 데이터를 저장하고
+    // 잠겨있는 스테이지를 오픈하는 메서드
     public void OpenStage()
     {
         int count = this.transform.childCount;
@@ -19,6 +21,7 @@ public class StageObjectsControllerScript : MonoBehaviour
             if(stage == null)
             {
                 Debug.Log("Stage스크립트가 존재하지 않음");
+                return;
             }
 
             stage.LoadStageData();

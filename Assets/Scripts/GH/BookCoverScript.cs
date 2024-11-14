@@ -25,26 +25,33 @@ public class BookCoverScript : MonoBehaviour
     {
         if (isTurning)
         {
-            currentTime += Time.deltaTime;
-            float time = Mathf.Clamp01(currentTime / turnDuration);
-
-            float startAngle = isOpening ? -180 : 0;
-            float endAngle = isOpening ? 0 : -180;
-
-            float angle = Mathf.Lerp(startAngle, endAngle, time);
-            bookCoverTr.localRotation = Quaternion.Euler(angle, -90, 0);
-
-            if (time >= 1.0f)
-            {
-                isTurning = false;
-                currentTime = 0;
-
-                if(!isOpening)
-                    openBookButton.SetActive(true);
-            }
+            TurningCover();
         }
     }
 
+    // BookCover 회전 로직
+    void TurningCover()
+    {
+        currentTime += Time.deltaTime;
+        float time = Mathf.Clamp01(currentTime / turnDuration);
+
+        float startAngle = isOpening ? -180 : 0;
+        float endAngle = isOpening ? 0 : -180;
+
+        float angle = Mathf.Lerp(startAngle, endAngle, time);
+        bookCoverTr.localRotation = Quaternion.Euler(angle, -90, 0);
+
+        if (time >= 1.0f)
+        {
+            isTurning = false;
+            currentTime = 0;
+
+            if (!isOpening)
+                openBookButton.SetActive(true);
+        }
+    }
+
+    // TItleScene의 처음 시작할때 ButtonEvent 로직
     public void OpenCover()
     {
         isTurning = true;

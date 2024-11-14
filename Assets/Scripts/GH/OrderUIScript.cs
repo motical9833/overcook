@@ -5,13 +5,16 @@ using UnityEngine.UI;
 
 public class OrderUIScript : MonoBehaviour
 {
+    // order 게이지
     Slider slider;
     public Image fill;
 
     Color greenColor = Color.green;
     Color redColor = Color.red;
+    // 제한 시간
     private float initialTimer = 80.0f;
 
+    // 현재 시간
     float currentTimer;
     float timeInterval;
     bool isDanger;
@@ -34,20 +37,20 @@ public class OrderUIScript : MonoBehaviour
     {
         currentTimer -= Time.deltaTime;
 
-        float ratio = Mathf.Clamp01(currentTimer / initialTimer);
+        // 타이머 비율 계산 및 슬라이더 업데이트
+        slider.value = currentTimer / initialTimer;
 
-        slider.value = ratio;
-
-        float t = Mathf.PingPong(currentTimer / initialTimer, 1.0f);
-
+        // 색상 전환
+        float t = Mathf.Clamp01(currentTimer / initialTimer);
         fill.color = Color.Lerp(redColor, greenColor, t);
 
-        if(!isDanger && currentTimer <= 10.0f)
+        // 경고음 재생
+        if (currentTimer <= 10.0f && !m_AudioSource.isPlaying)
         {
-            isDanger = true;
             m_AudioSource.Play();
         }
 
+        // 타임종료
         if (currentTimer <= 0)
         {
             ResetTimer();
@@ -61,9 +64,10 @@ public class OrderUIScript : MonoBehaviour
 
     public void ResetTimer()
     {
-        currentTimer = 80.0f;
+        currentTimer = initialTimer;
         slider.value = 1;
         fill.color = greenColor;
+        isDanger = false;
         m_AudioSource.Stop();
     }
 }

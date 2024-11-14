@@ -12,6 +12,7 @@ public class TitleBookControllerScript : MonoBehaviour
     }
 
 
+    // TitleScene의 처음 시작할 때 ButtonEvent
     public void ClickTitleEvent()
     {
         myBook.GetComponent<BookCoverScript>().OpenCover();
