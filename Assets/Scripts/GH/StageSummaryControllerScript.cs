@@ -50,7 +50,9 @@ public class StageSummaryControllerScript : MonoBehaviour
     public void OpenUISummaryData()
     {
         stageSummaryScript.gameObject.SetActive(true);
+        // 점수 표시
         stageSummaryScript.SetSummaryTextUI(summaryData.orderDelivered, summaryData.tips, summaryData.orderFailedCount);
+        // UI효과 실행
         mask.GetComponent<IrisInScript>().StartIrisInUI();
     }
 

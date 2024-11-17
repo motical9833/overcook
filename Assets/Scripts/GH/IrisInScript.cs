@@ -24,7 +24,6 @@ public class IrisInScript : MonoBehaviour
 
     public void StartIrisInUI()
     {
-        //this.GetComponent<Image>().sprite = sprite;
         StartCoroutine(LerpCoroutine(1.0f));
     }
 

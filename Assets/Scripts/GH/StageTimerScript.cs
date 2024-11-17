@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class StageTimerScript : MonoBehaviour
 {
-    float stageTimeLimit = 180.0f;
+    float stageTimeLimit = 3.0f;
     float timeupTime = 5.0f;
     TextMeshProUGUI textMeshGUI = null;
     bool isStart = false;
@@ -31,39 +31,60 @@ public class StageTimerScript : MonoBehaviour
             return;
 
         stageTimeLimit -= Time.deltaTime;
-
-        textMeshGUI.text = ((int)(stageTimeLimit / 60) + ":" + (int)(stageTimeLimit % 60)).ToString();
+        UpdateTimerUI();
 
         if (stageTimeLimit < 0 && !isTimeUP)
         {
-            isStart = false;
-            isTimeUP = true;
-            
-            StartCoroutine(TimeUPUICoroutine());
+            TimeUP();
         }
     }
 
+    // 타이머 UI 업데이트
+    private void UpdateTimerUI()
+    {
+        int minutes = (int)(stageTimeLimit / 60);
+        int seconds = (int)(stageTimeLimit % 60);
+        textMeshGUI.text = $"{minutes}:{seconds}";
+    }
+    
+    // 시간이 종료되었을 때 실행되는 메서드
+    private void TimeUP()
+    {
+        isStart = false;
+        isTimeUP = true;
+
+        StartCoroutine(TimeUPUICoroutine());
+    }
+
+    // 게임이 끝났을 때 처리해야 할 메서드들을 실행시키는 코루틴
     IEnumerator TimeUPUICoroutine()
     {
-        BGMScript bgmScript = GameObject.FindWithTag("AudioManager").GetComponent<BGMScript>();
+        BGMScript bgmScript =
+            GameObject.FindWithTag("AudioManager").GetComponent<BGMScript>();
+
         if (!bgmScript)
         {
             Debug.Log("bgmScript가 존재하지 않음!");
         }
+
+        //
         GameObject timeUpPanal = this.transform.GetChild(2).gameObject;
         timeUpPanal.SetActive(true);
+        // 타임업 UI 코루틴 실행
         timeUpPanal.GetComponent<TimeUPUIScript>().TimeUP();
+
         stageManager.StageScriptStop();
 
         bgmScript.StartBGM("TimesUpSting",false);
 
+        // timeupTime만큼 지연
         yield return new WaitForSeconds(timeupTime);
 
+        // 결과창 오픈
         OpenSummary(bgmScript);
-
-        //EndTimeLimeted();
     }
 
+    // SummaryUI를 활성화 하고 UI 효과를 실행시키는 메서드
     private void OpenSummary(BGMScript script)
     {
 
