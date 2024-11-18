@@ -9,12 +9,7 @@ public class IrisInScript : MonoBehaviour
     GameObject mainCanvas;
     Sprite sprite;
 
-
     public Material irisMaterial;
-    //public float duration = 1.0f;
-
-    //private float radius;
-    //private bool isClosing = false;
     
     private void Awake()
     {
@@ -27,17 +22,25 @@ public class IrisInScript : MonoBehaviour
         StartCoroutine(LerpCoroutine(1.0f));
     }
 
+    // 아리이스 인 전환 효과를 코루틴으로 구현
     private IEnumerator LerpCoroutine(float duration)
     {
-        float radius = 0.0f;
+        if (duration <= 0)
+        {
+            Debug.LogWarning("duration은 0보다 커야합니다.");
+            yield break;
+        }
+
+        float progress = 0.0f;
         this.transform.localScale = Vector3.one;
 
-        while (radius < duration)
+        while (progress < 1.0f)
         {
-            radius += Time.deltaTime / duration;
-            radius = Mathf.Clamp(radius, 0.0f, 1.0f);
-            irisMaterial.SetFloat("_Radius", radius);
+            progress += Time.deltaTime / duration;
+            irisMaterial.SetFloat("_Radius", progress);
             yield return null;
         }
+
+        irisMaterial.SetFloat("_Radius", 1.0f);
     }
 }

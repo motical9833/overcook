@@ -76,7 +76,7 @@ public class StageSummaryScript : MonoBehaviour
 
         int[] testarr = { 20, 40, 60 };
 
-        StartCoroutine(LerpAlphaToMax(starImgs, 1, score, testarr));
+        StartCoroutine(ImageLerpAlphaToMax(starImgs, 1, score, testarr));
     }
 
     // 알파값을 조절하는 실질적인 코루틴
@@ -105,7 +105,8 @@ public class StageSummaryScript : MonoBehaviour
         text.color = color;
     }
 
-    private IEnumerator LerpAlphaToMax(Image[] image, float duration,int score,int[] goal)
+    // 별 이미지의 알파값을 0 -> 1 으로 서서히 증가시키는 코루틴
+    private IEnumerator ImageLerpAlphaToMax(Image[] image, float duration,int score,int[] goal)
     {
         if (duration <= 0)
         {
