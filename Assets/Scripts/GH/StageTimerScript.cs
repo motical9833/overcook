@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class StageTimerScript : MonoBehaviour
 {
-    float stageTimeLimit = 3.0f;
+    float stageTimeLimit = 180.0f;
     float timeupTime = 5.0f;
     TextMeshProUGUI textMeshGUI = null;
     bool isStart = false;
